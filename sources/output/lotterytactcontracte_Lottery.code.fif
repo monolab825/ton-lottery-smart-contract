@@ -1,0 +1,965 @@
+PROGRAM{
+  DECLPROC __tact_verify_address
+  DECLPROC __tact_load_address
+  DECLPROC __tact_store_address
+  DECLPROC __tact_my_balance
+  DECLPROC __tact_not_null
+  DECLPROC __tact_context_get
+  DECLPROC __tact_context_get_sender
+  DECLPROC __tact_prepare_random
+  DECLPROC __tact_store_bool
+  DECLPROC __tact_dict_set_int_int
+  DECLPROC __tact_dict_get_int_int
+  DECLPROC __tact_dict_set_int_slice
+  DECLPROC __tact_dict_get_int_slice
+  DECLPROC __tact_dict_set_slice_cell
+  DECLPROC __tact_dict_get_slice_cell
+  DECLPROC __tact_slice_eq_bits
+  DECLPROC __tact_string_builder_start
+  DECLPROC __tact_string_builder_start_string
+  DECLPROC __tact_string_builder_end
+  DECLPROC __tact_string_builder_end_slice
+  DECLPROC __tact_string_builder_append
+  DECLPROC __tact_int_to_string
+  DECLPROC $Deploy$_load
+  DECLPROC $DeployOk$_store
+  DECLPROC $DeployOk$_store_cell
+  DECLPROC $TokenPayout$_load
+  DECLPROC $TokenPayoutResponse$_store
+  DECLPROC $TokenPayoutResponse$_store_cell
+  DECLPROC $TokenPayoutResponse$_load
+  DECLPROC $TokenPayoutResponse$_as_optional
+  DECLPROC $TokenPayoutResponse$_load_opt
+  DECLPROC $Winner$_store
+  DECLPROC $Winner$_load
+  DECLPROC $Lottery$_store
+  DECLPROC $Lottery$_load
+  DECLPROC $StateInit$_not_null
+  DECLPROC $Context$_get_value
+  DECLPROC $TokenPayoutResponse$_not_null
+  DECLPROC $Winner$_to_external
+  DECLPROC $Winner$_constructor_value_token_address
+  DECLPROC $Lottery$_contract_init
+  DECLPROC $Lottery$_contract_load
+  DECLPROC $Lottery$_contract_store
+  DECLPROC $global_random
+  DECLPROC $global_send
+  DECLPROC $Lottery$_fun_clear
+  DECLPROC $Lottery$_fun_totalBalance
+  DECLPROC $Lottery$_fun_getUserTokens
+  DECLPROC $Lottery$_fun_getLastwinner
+  DECLPROC $SendParameters$_constructor_bounce_to_value_mode_body_code_data
+  DECLPROC $Lottery$_fun_forward
+  DECLPROC $Lottery$_fun_notify
+  DECLPROC $Lottery$_fun_owner
+  DECLPROC $TokenPayoutResponse$_constructor_token
+  DECLPROC $DeployOk$_constructor_queryId
+  DECLPROC $Lottery$_internal_binary_TokenPayout
+  DECLPROC $Lottery$_internal_text_62053394eda83a15abf74de3ed26f6ee8fcb1ec7dbdda521fcc1c87fc96410cf
+  DECLPROC $Lottery$_internal_binary_Deploy
+  125299 DECLMETHOD %totalBalance
+  78420 DECLMETHOD %getUserTokens
+  113677 DECLMETHOD %getLastwinner
+  83229 DECLMETHOD %owner
+  113617 DECLMETHOD supported_interfaces
+  121275 DECLMETHOD get_abi_ipfs
+  115390 DECLMETHOD lazy_deployment_completed
+  DECLPROC $Lottery$_contract_router_internal
+  DECLPROC recv_internal
+  DECLGLOBVAR __tact_context
+  DECLGLOBVAR __tact_context_sender
+  DECLGLOBVAR __tact_context_sys
+  DECLGLOBVAR __tact_randomized
+  __tact_verify_address PROCINLINE:<{
+    DUP
+    SBITS
+    267 PUSHINT
+    EQUAL
+    136 THROWIFNOT
+    DUP
+    11 PLDU
+    DUP
+    1279 PUSHINT
+    EQUAL
+    137 THROWIF
+    10 PUSHPOW2
+    EQUAL
+    136 THROWIFNOT
+  }>
+  __tact_load_address PROCINLINE:<{
+    LDMSGADDR
+    SWAP
+    __tact_verify_address INLINECALLDICT
+  }>
+  __tact_store_address PROCINLINE:<{
+    __tact_verify_address INLINECALLDICT
+    STSLICER
+  }>
+  __tact_my_balance PROCINLINE:<{
+    BALANCE
+    FIRST
+  }>
+  __tact_not_null PROCINLINE:<{
+    DUP
+    ISNULL
+    128 THROWIF
+  }>
+  __tact_context_get PROCINLINE:<{
+    __tact_context GETGLOB
+    4 UNTUPLE
+  }>
+  __tact_context_get_sender PROCINLINE:<{
+    __tact_context_sender GETGLOB
+  }>
+  __tact_prepare_random PROCINLINE:<{
+    __tact_randomized GETGLOB
+    ISNULL
+    IF:<{
+      LTIME
+      ADDRAND
+      TRUE
+      __tact_randomized SETGLOB
+    }>
+  }>
+  __tact_store_bool PROCINLINE:<{
+    SWAP
+    1 STI
+  }>
+  __tact_dict_set_int_int PROCINLINE:<{
+    OVER
+    ISNULL
+    IF:<{
+      2DROP
+      -ROT
+      DICTIDEL
+      DROP
+    }>ELSE<{
+      NEWC
+      SWAP
+      STIX
+      s1 s3 s3 XCHG3
+      DICTISETB
+    }>
+  }>
+  __tact_dict_get_int_int PROCINLINE:<{
+    s1 s3 s3 XCHG3
+    DICTIGET
+    NULLSWAPIFNOT
+    IF:<{
+      SWAP
+      LDIX
+      DROP
+    }>ELSE<{
+      2DROP
+      PUSHNULL
+    }>
+  }>
+  __tact_dict_set_int_slice PROCINLINE:<{
+    DUP
+    ISNULL
+    IF:<{
+      DROP
+      -ROT
+      DICTIDEL
+      DROP
+    }>ELSE<{
+      s1 s3 s3 XCHG3
+      DICTISET
+    }>
+  }>
+  __tact_dict_get_int_slice PROCINLINE:<{
+    -ROT
+    DICTIGET
+    NULLSWAPIFNOT
+    IF:<{
+    }>ELSE<{
+      DROP
+      PUSHNULL
+    }>
+  }>
+  __tact_dict_set_slice_cell PROCINLINE:<{
+    DUP
+    ISNULL
+    IF:<{
+      DROP
+      -ROT
+      DICTDEL
+      DROP
+    }>ELSE<{
+      s1 s3 s3 XCHG3
+      DICTSETREF
+    }>
+  }>
+  __tact_dict_get_slice_cell PROCINLINE:<{
+    -ROT
+    DICTGETREF
+    NULLSWAPIFNOT
+    IF:<{
+    }>ELSE<{
+      DROP
+      PUSHNULL
+    }>
+  }>
+  __tact_slice_eq_bits PROCINLINE:<{
+    SDEQ
+  }>
+  __tact_string_builder_start PROCINLINE:<{
+    NIL
+    SWAP
+    TPUSH
+    PUSHNULL
+    TPUSH
+  }>
+  __tact_string_builder_start_string PROCINLINE:<{
+    NEWC
+    __tact_string_builder_start INLINECALLDICT
+  }>
+  __tact_string_builder_end PROCINLINE:<{
+    UNCONS
+    SWAP
+    ENDC
+    WHILE:<{
+      OVER
+      ISNULL
+      NOT
+    }>DO<{
+      SWAP
+      UNCONS
+      -ROT
+      STREF
+      ENDC
+    }>
+    NIP
+  }>
+  __tact_string_builder_end_slice PROCINLINE:<{
+    __tact_string_builder_end INLINECALLDICT
+    CTOS
+  }>
+  __tact_string_builder_append PROCREF:<{
+    DUP
+    SREFS
+    OVER
+    SBITS
+    WHILE:<{
+      DUP
+      0 GTINT
+      s2 PUSH
+      0 GTINT
+      OR
+    }>DO<{
+      s0 s3 XCHG
+      UNCONS
+      127 PUSHINT
+      s2 PUSH
+      BBITS
+      3 RSHIFT#
+      SUB
+      s0 s5 XCHG
+      3 RSHIFT#
+      s5 s5 XCPU
+      MIN
+      DUP
+      0 GTINT
+      IF:<{
+        DUP
+        3 LSHIFT#
+        s1 s5 XCHG
+        LDSLICEX
+        s3 s3 XCHG2
+        STSLICER
+        s0 s1 s4 XCHG3
+      }>
+      -ROT
+      CONS
+      s4 s1 PUSH2
+      SUB
+      0 GTINT
+      IF:<{
+        NEWC
+        SWAP
+        CONS
+        s4 s4 XCHG2
+        SUB
+        3 LSHIFT#
+      }>ELSE<{
+        NIP
+        s3 POP
+        0 GTINT
+        IF:<{
+          LDREF
+          DROP
+          CTOS
+          DUP
+          SREFS
+          OVER
+          SBITS
+        }>ELSE<{
+          0 PUSHINT
+          DUP
+        }>
+      }>
+    }>
+    3 BLKDROP
+  }>
+  __tact_int_to_string PROCREF:<{
+    NEWC
+    OVER
+    0 LESSINT
+    IF:<{
+      45 PUSHINT
+      SWAP
+      8 STU
+      SWAP
+      NEGATE
+      SWAP
+    }>
+    OVER
+    1000000000000000000000000000000 PUSHINTX
+    LESS
+    IF:<{
+      0 PUSHINT
+      DUP
+      1 PUSHINT
+      UNTIL:<{
+        s0 s4 XCHG
+        10 PUSHINT
+        DIVMOD
+        48 ADDCONST
+        s5 PUSH
+        MUL
+        s1 s2 XCHG
+        ADD
+        s0 s4 XCHG
+        8 LSHIFT#
+        s0 s2 XCHG
+        INC
+        OVER
+        0 EQINT
+        s5 s3 s0 XCHG3
+      }>
+      DROP
+      s3 POP
+      3 LSHIFT#
+      STUX
+    }>ELSE<{
+      NIL
+      0 PUSHINT
+      UNTIL:<{
+        s3 PUSH
+        10 PUSHINT
+        MOD
+        s1 s2 XCHG
+        TPUSH
+        SWAP
+        INC
+        s0 s3 XCHG
+        10 PUSHINT
+        DIV
+        DUP
+        0 EQINT
+        s1 s4 XCHG
+      }>
+      s3 POP
+      s2 PUSH
+      DEC
+      s0 s3 XCHG
+      REPEAT:<{
+        s0 s2 PUSH2
+        INDEXVAR
+        48 ADDCONST
+        ROT
+        8 STU
+        s0 s2 XCHG
+        DEC
+        -ROT
+      }>
+      DROP
+      NIP
+    }>
+    ENDC
+    CTOS
+  }>
+  $Deploy$_load PROCINLINE:<{
+    32 LDU
+    SWAP
+    2490013878 PUSHINT
+    EQUAL
+    129 THROWIFNOT
+    64 LDU
+    SWAP
+  }>
+  $DeployOk$_store PROCINLINE:<{
+    2952335191 PUSHINT
+    ROT
+    32 STU
+    64 STU
+  }>
+  $DeployOk$_store_cell PROCINLINE:<{
+    NEWC
+    SWAP
+    $DeployOk$_store INLINECALLDICT
+    ENDC
+  }>
+  $TokenPayout$_load PROCINLINE:<{
+    32 LDU
+    SWAP
+    359506082 PUSHINT
+    EQUAL
+    129 THROWIFNOT
+    LDGRAMS
+    SWAP
+  }>
+  $TokenPayoutResponse$_store PROCINLINE:<{
+    NEWC
+    SWAP
+    STSLICER
+    ENDC
+    SWAP
+    STREF
+  }>
+  $TokenPayoutResponse$_store_cell PROCINLINE:<{
+    NEWC
+    SWAP
+    $TokenPayoutResponse$_store INLINECALLDICT
+    ENDC
+  }>
+  $TokenPayoutResponse$_load PROCINLINE:<{
+    LDREF
+    SWAP
+    CTOS
+  }>
+  $TokenPayoutResponse$_as_optional PROCINLINE:<{
+    1 TUPLE
+  }>
+  $TokenPayoutResponse$_load_opt PROCINLINE:<{
+    DUP
+    ISNULL
+    IF:<{
+      DROP
+      PUSHNULL
+    }>ELSE<{
+      CTOS
+      $TokenPayoutResponse$_load INLINECALLDICT
+      NIP
+      $TokenPayoutResponse$_as_optional INLINECALLDICT
+    }>
+  }>
+  $Winner$_store PROCINLINE:<{
+    2SWAP
+    STGRAMS
+    s1 s2 XCHG
+    257 PUSHINT
+    STIX
+    SWAP
+    __tact_store_address INLINECALLDICT
+  }>
+  $Winner$_load PROCINLINE:<{
+    LDGRAMS
+    257 PUSHINT
+    LDIX
+    __tact_load_address INLINECALLDICT
+    s3 s3 s0 XCHG3
+  }>
+  $Lottery$_store PROCINLINE:<{
+    s3 s10 XCHG
+    s9 s8 s7 XCHG3
+    $Winner$_store INLINECALLDICT
+    s0 s3 XCHG2
+    __tact_store_address INLINECALLDICT
+    SWAP
+    NEWC
+    256 STU
+    s1 s2 XCHG
+    256 STU
+    s1 s5 XCHG
+    STDICT
+    s1 s3 XCHG
+    STDICT
+    STDICT
+    257 PUSHINT
+    STIX
+    ENDC
+    SWAP
+    STREF
+  }>
+  $Lottery$_load PROCINLINE:<{
+    $Winner$_load INLINECALLDICT
+    s0 s3 XCHG
+    __tact_load_address INLINECALLDICT
+    SWAP
+    LDREF
+    SWAP
+    CTOS
+    256 LDU
+    256 LDU
+    LDDICT
+    LDDICT
+    LDDICT
+    257 PUSHINT
+    LDIX
+    DROP
+    s6 s10 XCHG
+    s6 s7 XCHG
+  }>
+  $StateInit$_not_null PROCINLINE:<{
+    DUP
+    ISNULL
+    128 THROWIF
+    2 UNTUPLE
+  }>
+  $Context$_get_value PROCINLINE:<{
+    s1 s3 XCHG
+    3 BLKDROP
+  }>
+  $TokenPayoutResponse$_not_null PROCINLINE:<{
+    DUP
+    ISNULL
+    128 THROWIF
+    1 UNTUPLE
+  }>
+  $Winner$_to_external PROCINLINE:<{
+  }>
+  $Winner$_constructor_value_token_address PROCINLINE:<{
+  }>
+  $Lottery$_contract_init PROCREF:<{
+    0 PUSHINT
+    1000000000 PUSHINT
+    PUSHNULL
+    PUSHNULL
+    PUSHNULL
+    s4 s4 s4 PUSH3
+    B{b5ee9c7241010101002400004380107bfaaa5cc6e5368e5f9799188bd798cd22e04ab16d1d8ea4fc37480741e6351064a3e1a6} B>boc <s PUSHSLICE
+    $Winner$_constructor_value_token_address INLINECALLDICT
+    __tact_context_get_sender INLINECALLDICT
+    6 4 BLKSWAP
+  }>
+  $Lottery$_contract_load PROCREF:<{
+    c4 PUSH
+    CTOS
+    LDREF
+    SWAP
+    __tact_context_sys SETGLOB
+    1 LDI
+    SWAP
+    IFJMP:<{
+      $Lottery$_load INLINECALLDICT
+      1 10 BLKDROP2
+    }>
+    DROP
+    MYADDR
+    11 PLDU
+    10 PUSHPOW2
+    EQUAL
+    137 THROWIFNOT
+    $Lottery$_contract_init INLINECALLDICT
+  }>
+  $Lottery$_contract_store PROCINLINE:<{
+    NEWC
+    __tact_context_sys GETGLOB
+    SWAP
+    STREF
+    TRUE
+    SWAP
+    1 STI
+    10 -ROLL
+    $Lottery$_store INLINECALLDICT
+    ENDC
+    c4 POP
+  }>
+  $global_random PROCINLINE:<{
+    __tact_prepare_random INLINECALLDICT
+    OVER
+    SUB
+    RAND
+    ADD
+  }>
+  $global_send PROCREF:<{
+    NEWC
+    1 PUSHINT
+    SWAP
+    2 STI
+    s0 s7 XCHG2
+    __tact_store_bool INLINECALLDICT
+    0 PUSHINT
+    SWAP
+    3 STI
+    s0 s5 XCHG2
+    __tact_store_address INLINECALLDICT
+    s0 s3 XCHG2
+    STGRAMS
+    0 PUSHINT
+    SWAP
+    105 STI
+    s3 PUSH
+    ISNULL
+    NOT
+    IF:<{
+      TRUE
+    }>ELSE<{
+      s4 PUSH
+      ISNULL
+      NOT
+    }>
+    IF:<{
+      TRUE
+      __tact_store_bool INLINECALLDICT
+      NEWC
+      FALSE
+      __tact_store_bool INLINECALLDICT
+      FALSE
+      __tact_store_bool INLINECALLDICT
+      s4 PUSH
+      ISNULL
+      NOT
+      IF:<{
+        TRUE
+        __tact_store_bool INLINECALLDICT
+        s0 s4 XCHG
+        __tact_not_null INLINECALLDICT
+        s0 s4 XCHG2
+        STREF
+      }>ELSE<{
+        s4 POP
+        s0 s3 XCHG
+        FALSE
+        __tact_store_bool INLINECALLDICT
+      }>
+      s4 PUSH
+      ISNULL
+      NOT
+      IF:<{
+        TRUE
+        __tact_store_bool INLINECALLDICT
+        s0 s4 XCHG
+        __tact_not_null INLINECALLDICT
+        s0 s4 XCHG2
+        STREF
+      }>ELSE<{
+        s4 POP
+        s0 s3 XCHG
+        FALSE
+        __tact_store_bool INLINECALLDICT
+      }>
+      FALSE
+      __tact_store_bool INLINECALLDICT
+      s0 s2 XCHG
+      TRUE
+      __tact_store_bool INLINECALLDICT
+      s0 s2 XCHG
+      ENDC
+      ROT
+      STREF
+    }>ELSE<{
+      s3 POP
+      s3 POP
+      SWAP
+      FALSE
+      __tact_store_bool INLINECALLDICT
+    }>
+    OVER
+    ISNULL
+    NOT
+    IF:<{
+      TRUE
+      __tact_store_bool INLINECALLDICT
+      SWAP
+      __tact_not_null INLINECALLDICT
+      SWAP
+      STREF
+    }>ELSE<{
+      NIP
+      FALSE
+      __tact_store_bool INLINECALLDICT
+    }>
+    ENDC
+    SWAP
+    SENDRAWMSG
+  }>
+  $Lottery$_fun_clear PROCREF:<{
+    s4 s5 XCHG
+    5 BLKDROP
+    PUSHNULL
+    PUSHNULL
+    PUSHNULL
+    0 PUSHINT
+    s0 s4 PUXC
+    4 -ROLL
+  }>
+  $Lottery$_fun_totalBalance PROCREF:<{
+    s5 PUSH
+  }>
+  $Lottery$_fun_getUserTokens PROCREF:<{
+    s3 PUSH
+  }>
+  $Lottery$_fun_getLastwinner PROCREF:<{
+    s9 s8 s7 PUSH3
+  }>
+  $SendParameters$_constructor_bounce_to_value_mode_body_code_data PROCINLINE:<{
+  }>
+  $Lottery$_fun_forward PROCREF:<{
+    PUSHNULL
+    PUSHNULL
+    s2 PUSH
+    ISNULL
+    NOT
+    IF:<{
+      2DROP
+      $StateInit$_not_null INLINECALLDICT
+      SWAP
+    }>ELSE<{
+      s2 POP
+    }>
+    s2 s4 XCHG
+    0 PUSHINT
+    s0 s3 XCHG
+    s0 s4 XCHG
+    66 PUSHINT
+    s2 s3 XCHG2
+    $SendParameters$_constructor_bounce_to_value_mode_body_code_data INLINECALLDICT
+    $global_send INLINECALLDICT
+  }>
+  $Lottery$_fun_notify PROCINLINE:<{
+    __tact_context_get_sender INLINECALLDICT
+    SWAP
+    FALSE
+    PUSHNULL
+    $Lottery$_fun_forward INLINECALLDICT
+  }>
+  $Lottery$_fun_owner PROCREF:<{
+    s6 PUSH
+  }>
+  $TokenPayoutResponse$_constructor_token PROCINLINE:<{
+  }>
+  $DeployOk$_constructor_queryId PROCINLINE:<{
+  }>
+  $Lottery$_internal_binary_TokenPayout PROCINLINE:<{
+    __tact_context_get INLINECALLDICT
+    s2 s3 XCHG
+    3 BLKDROP
+    57066 PUSHINT
+    s2 s7 XCPU
+    GEQ
+    s1 s2 XCHG
+    THROWANYIFNOT
+    111111 PUSHINT
+    999999 PUSHINT
+    $global_random INLINECALLDICT
+    __tact_string_builder_start_string INLINECALLDICT
+    OVER
+    __tact_int_to_string INLINECALLDICT
+    s7 PUSH
+    267 PUSHINT
+    s5 PUSH
+    __tact_dict_get_slice_cell INLINECALLDICT
+    $TokenPayoutResponse$_load_opt INLINECALLDICT
+    ISNULL
+    NOT
+    IF:<{
+      s7 PUSH
+      267 PUSHINT
+      s5 PUSH
+      __tact_dict_get_slice_cell INLINECALLDICT
+      $TokenPayoutResponse$_load_opt INLINECALLDICT
+      $TokenPayoutResponse$_not_null INLINECALLDICT
+      -ROT
+      __tact_string_builder_append INLINECALLDICT
+      B{b5ee9c724101010100030000022cdd26222c} B>boc <s PUSHSLICE
+      __tact_string_builder_append INLINECALLDICT
+      SWAP
+      __tact_string_builder_append INLINECALLDICT
+    }>ELSE<{
+      __tact_string_builder_append INLINECALLDICT
+    }>
+    267 PUSHINT
+    SWAP
+    __tact_string_builder_end_slice INLINECALLDICT
+    $TokenPayoutResponse$_constructor_token INLINECALLDICT
+    $TokenPayoutResponse$_store_cell INLINECALLDICT
+    s3 PUSH
+    s3 s8 XCHG
+    SWAP
+    __tact_dict_set_slice_cell INLINECALLDICT
+    s0 s4 XCHG
+    257 PUSHINT
+    s6 s2 PUSH2
+    __tact_dict_set_int_slice INLINECALLDICT
+    s0 s2 XCHG
+    INC
+    257 PUSHINT
+    s4 s0 s0 XC2PU
+    s5 s7 s(-2) PU2XC
+    __tact_dict_set_int_int INLINECALLDICT
+    __tact_context_get INLINECALLDICT
+    $Context$_get_value INLINECALLDICT
+    s1 s8 XCHG
+    ADD
+    s0 s5 XCHG
+    __tact_int_to_string INLINECALLDICT
+    $TokenPayoutResponse$_constructor_token INLINECALLDICT
+    $TokenPayoutResponse$_store_cell INLINECALLDICT
+    s5 s7 XCHG
+    s4 s5 XCHG
+    s2 s4 XCHG
+    s2 s3 XCHG
+    TRUE
+    PUSHNULL
+    $Lottery$_fun_forward INLINECALLDICT
+  }>
+  $Lottery$_internal_text_62053394eda83a15abf74de3ed26f6ee8fcb1ec7dbdda521fcc1c87fc96410cf PROCINLINE:<{
+    s7 POP
+    s7 POP
+    s7 POP
+    __tact_context_get INLINECALLDICT
+    s2 s3 XCHG
+    3 BLKDROP
+    s4 PUSH
+    21842 PUSHINT
+    s0 s2 XCHG
+    __tact_slice_eq_bits INLINECALLDICT
+    THROWANYIFNOT
+    0 PUSHINT
+    s5 PUSH
+    $global_random INLINECALLDICT
+    5352 PUSHINT
+    257 PUSHINT
+    s8 s(-1) s(-1) PUXCPU
+    s4 s(-1) PUXC
+    __tact_dict_get_int_int INLINECALLDICT
+    ISNULL
+    NOT
+    THROWANYIFNOT
+    257 PUSHINT
+    s0 s7 PUSH2
+    s3 s3 XCHG2
+    __tact_dict_get_int_int INLINECALLDICT
+    __tact_not_null INLINECALLDICT
+    s7 PUSH
+    257 PUSHINT
+    s2 PUSH
+    __tact_dict_get_int_slice INLINECALLDICT
+    __tact_not_null INLINECALLDICT
+    s4 PUSH
+    -ROT
+    $Winner$_constructor_value_token_address INLINECALLDICT
+    s9 s8 s7 XCHG3
+    $Lottery$_fun_clear INLINECALLDICT
+  }>
+  $Lottery$_internal_binary_Deploy PROCINLINE:<{
+    $DeployOk$_constructor_queryId INLINECALLDICT
+    $DeployOk$_store_cell INLINECALLDICT
+    $Lottery$_fun_notify INLINECALLDICT
+  }>
+  %totalBalance PROC:<{
+    $Lottery$_contract_load INLINECALLDICT
+    $Lottery$_fun_totalBalance INLINECALLDICT
+    10 1 BLKDROP2
+  }>
+  %getUserTokens PROC:<{
+    $Lottery$_contract_load INLINECALLDICT
+    $Lottery$_fun_getUserTokens INLINECALLDICT
+    10 1 BLKDROP2
+  }>
+  %getLastwinner PROC:<{
+    $Lottery$_contract_load INLINECALLDICT
+    $Lottery$_fun_getLastwinner INLINECALLDICT
+    10 3 BLKDROP2
+    $Winner$_to_external INLINECALLDICT
+  }>
+  %owner PROC:<{
+    $Lottery$_contract_load INLINECALLDICT
+    $Lottery$_fun_owner INLINECALLDICT
+    10 1 BLKDROP2
+  }>
+  supported_interfaces PROC:<{
+    123515602279859691144772641439386770278 PUSHINT
+    209801025412363888721030803524359905849 PUSHINT
+    42980537499636128163026532310500881091 PUSHINT
+    209474421377847335869795010607481022628 PUSHINT
+    86142586315491086060343270784266291122 PUSHINT
+  }>
+  get_abi_ipfs PROC:<{
+    x{697066733a2f2f516d564553524575674e777970716750376757543531714677637969717869735a344d7a4859726e323763527655} PUSHSLICE
+  }>
+  lazy_deployment_completed PROC:<{
+    c4 PUSH
+    CTOS
+    1 LDI
+    SWAP
+  }>
+  $Lottery$_contract_router_internal PROCREF:<{
+    c2 SAVE
+    SAMEALTSAVE
+    SWAP
+    IFJMP:<{
+      DROP
+      TRUE
+    }>
+    0 PUSHINT
+    OVER
+    SBITS
+    31 GTINT
+    IF:<{
+      DROP
+      DUP
+      32 PLDU
+    }>
+    DUP
+    359506082 PUSHINT
+    EQUAL
+    IFJMP:<{
+      DROP
+      $TokenPayout$_load INLINECALLDICT
+      NIP
+      $Lottery$_internal_binary_TokenPayout INLINECALLDICT
+      TRUE
+    }>
+    DUP
+    2490013878 PUSHINT
+    EQUAL
+    IFJMP:<{
+      DROP
+      $Deploy$_load INLINECALLDICT
+      NIP
+      $Lottery$_internal_binary_Deploy INLINECALLDICT
+      TRUE
+    }>
+    0 EQINT
+    IF:<{
+      HASHSU
+      44335849400648008694579375177098857634308804431613899627836374710071909945551 PUSHINT
+      EQUAL
+      IFJMP:<{
+        $Lottery$_internal_text_62053394eda83a15abf74de3ed26f6ee8fcb1ec7dbdda521fcc1c87fc96410cf INLINECALLDICT
+        TRUE
+        RETALT
+      }>
+    }>ELSE<{
+      DROP
+    }>
+    FALSE
+  }>
+  recv_internal PROC:<{
+    SWAP
+    CTOS
+    4 LDU
+    SWAP
+    1 PUSHINT
+    AND
+    NEGATE
+    SWAP
+    LDMSGADDR
+    SWAP
+    __tact_verify_address INLINECALLDICT
+    s0 s4 s2 PUXCPU
+    s0 s3 XCHG
+    4 TUPLE
+    __tact_context SETGLOB
+    s0 s2 XCHG
+    __tact_context_sender SETGLOB
+    $Lottery$_contract_load INLINECALLDICT
+    2 10 BLKSWAP
+    $Lottery$_contract_router_internal INLINECALLDICT
+    130 THROWIFNOT
+    $Lottery$_contract_store INLINECALLDICT
+  }>
+}END>c
