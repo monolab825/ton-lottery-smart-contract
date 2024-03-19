@@ -4,6 +4,7 @@
     "build": "tact --config ./tact.config.json",
     "test": "jest",
     "deploy": "ts-node ./sources/contract.deploy.ts",
+    "deploy2": "ts-node ./sources/count-pool-contract.deploy.ts",
     "read": "ts-node ./sources/contract.read.ts"
   },
   "dependencies": {

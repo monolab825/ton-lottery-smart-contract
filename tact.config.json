@@ -1,10 +1,16 @@
 {
-    "projects": [{
-        "name": "lotterytactcontracte",
-        "path": "./sources/contract.tact",
-        "output": "./sources/output",
-        "options":{
-            
+    "projects": [
+        {
+            "name": "lotterytactcontracte",
+            "path": "./sources/contract.tact",
+            "output": "./sources/output",
+            "options": {}
+        },
+        {
+            "name": "lotterytactcontractCounter",
+            "path": "./sources/count-pool-contract.tact",
+            "output": "./sources/output2",
+            "options": {}
         }
-    }]
+    ]
 }
